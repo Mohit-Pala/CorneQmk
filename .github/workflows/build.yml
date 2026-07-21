@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
 env:
-  KEYBOARD: crkbd/rev4
+  KEYBOARD: crkbd
   KEYMAP: personal
 
 jobs:
