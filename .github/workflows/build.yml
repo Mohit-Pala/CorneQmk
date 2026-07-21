@@ -1,0 +1,54 @@
+name: Build QMK firmware
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "keymaps/**"
+      - ".github/workflows/build.yml"
+  workflow_dispatch:
+
+env:
+  KEYBOARD: crkbd/rev4
+  KEYMAP: personal
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: ghcr.io/qmk/qmk_cli:latest
+    steps:
+      - name: Checkout this repo (has our keymap)
+        uses: actions/checkout@v4
+        with:
+          path: keymap-src
+
+      - name: Checkout qmk_firmware
+        uses: actions/checkout@v4
+        with:
+          repository: qmk/qmk_firmware
+          submodules: recursive
+          path: qmk_firmware
+
+      - name: Drop in our keymap
+        run: |
+          mkdir -p qmk_firmware/keyboards/${{ env.KEYBOARD }}/keymaps/${{ env.KEYMAP }}
+          cp -r keymap-src/keymaps/${{ env.KEYMAP }}/* qmk_firmware/keyboards/${{ env.KEYBOARD }}/keymaps/${{ env.KEYMAP }}/
+
+      - name: Compile firmware
+        working-directory: qmk_firmware
+        run: |
+          qmk setup -y || true
+          qmk compile -kb ${{ env.KEYBOARD }} -km ${{ env.KEYMAP }}
+
+      - name: Locate firmware file
+        working-directory: qmk_firmware
+        run: |
+          mkdir -p ../firmware-out
+          find . -maxdepth 1 -type f \( -name "*.uf2" -o -name "*.hex" -o -name "*.bin" \) -exec cp {} ../firmware-out/ \;
+
+      - name: Upload firmware artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: crkbd-personal-firmware
+          path: firmware-out/*
+          if-no-files-found: error
