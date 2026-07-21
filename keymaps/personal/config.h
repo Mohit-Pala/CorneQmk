@@ -8,7 +8,9 @@
 
 // Per-key RGB backlight - adjust to taste
 #ifdef RGB_MATRIX_ENABLE
+    #undef RGB_MATRIX_MAXIMUM_BRIGHTNESS
     #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150
     #define RGB_MATRIX_SLEEP
+    #undef RGB_MATRIX_DEFAULT_MODE
     #define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_SOLID_COLOR
 #endif
