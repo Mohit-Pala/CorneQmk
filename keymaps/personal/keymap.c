@@ -31,7 +31,7 @@ enum layers {
 #define TH_SPC LSFT_T(KC_SPC)
 #define TH_ENT RSFT_T(KC_ENT)
 
-const uint16_t PROGMEM keymaps[MATRIX_ROWS][MATRIX_COLS] = {
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /*
  * QWERTY
@@ -95,7 +95,7 @@ const uint16_t PROGMEM keymaps[MATRIX_ROWS][MATRIX_COLS] = {
 #ifdef ENCODER_MAP_ENABLE
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_QWERTY] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
-    [_LOWER]  = { ENCODER_CCW_CW(RGB_HUD, RGB_HUI) },
-    [_RAISE]  = { ENCODER_CCW_CW(RGB_SAD, RGB_SAI) },
+    [_LOWER]  = { ENCODER_CCW_CW(RM_HUED, RM_HUEU) },
+    [_RAISE]  = { ENCODER_CCW_CW(RM_SATD, RM_SATU) },
 };
 #endif
