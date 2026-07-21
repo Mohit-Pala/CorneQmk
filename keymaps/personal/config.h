@@ -6,9 +6,9 @@
 #define QUICK_TAP_TERM 0
 #define TAPPING_TERM_PER_KEY
 
-// RGB backlight (underglow) - adjust to taste
-#ifdef RGBLIGHT_ENABLE
-    #define RGBLIGHT_LIMIT_VAL 150
-    #define RGBLIGHT_SLEEP
-    #define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_STATIC_LIGHT
+// Per-key RGB backlight - adjust to taste
+#ifdef RGB_MATRIX_ENABLE
+    #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150
+    #define RGB_MATRIX_SLEEP
+    #define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_SOLID_COLOR
 #endif
